@@ -97,9 +97,16 @@ if (isset($_POST['add'])) {
             echo "</div>";
         } else {
             echo "<div class='center b spaced'>";
-            echo "<img src='" . $CFG_GLPI["root_doc"] . "/pics/ok.png' alt='" . __s('OK') . "'>";
+            echo "<h1>Заявка обработана";
+            echo "<img src='" . $CFG_GLPI["root_doc"] . "/pics/ok.png' alt='" . __s('OK') . "' width = 16>";
+            echo "</h1>";
             Session::addMessageAfterRedirect(__('Thank you for using our automatic helpdesk system.'));
             Html::displayMessageAfterRedirect();
+            echo "<h3>Спасибо, что воспользовались системой подачи заявок</h3>";
+            echo '<a href="/front/ticket.php">';
+            echo '<button type="submit" class="btn btn-primary" name="return">';
+            echo '<span>В меню просмотра заявок</span>';
+            echo '</button>';
             echo "</div>";
         }
     } else {

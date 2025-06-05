@@ -1470,11 +1470,15 @@ class MailCollector extends CommonDBTM
     {
         $head   = [];
         $headers = $message->getHeaders();
-
         foreach ($headers as $header) {
            // is line with additional header?
             $key = $header->getFieldName();
             $value = $header->getFieldValue();
+            if($key == "From"){
+                $parts = explode('<', $value);
+                $name = trim($parts[0]); // get Name
+                $head["from_email_name"] = $name;
+            }
             if (
                 preg_match("/^X-/i", $key)
                 || preg_match("/^Auto-Submitted/i", $key)
@@ -1489,7 +1493,6 @@ class MailCollector extends CommonDBTM
                 $head[$key] .= trim($value);
             }
         }
-
         return $head;
     }
 

@@ -134,7 +134,6 @@
                   _n('Type', 'Types', 1),
                   right_field_options
                ) }}
-
                {% set cat_params = right_field_options|merge({
                   'on_change': 'this.form.submit()',
                }) %}
@@ -153,7 +152,6 @@
                   _n('Category', 'Categories', 1),
                   cat_params|merge({'condition': condition}),
                ) }}
-
                {{ fields.field(
                   'urgency',
                   item.dropdownUrgency({
@@ -165,7 +163,6 @@
                   __('Urgency'),
                   right_field_options
                ) }}
-
                {% if session('glpiactiveprofile')['helpdesk_hardware'] and session('glpiactiveprofile')['helpdesk_item_type']|length %}
                   {% set associated_items %}
                      <a class="btn btn-sm btn-ghost-secondary mt-2" role="button"

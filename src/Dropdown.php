@@ -2344,6 +2344,7 @@ JAVASCRIPT;
             echo $output;
             return $param['rand'];
         }
+
         return $output;
     }
 

@@ -4467,6 +4467,13 @@ JAVASCRIPT;
             $item_ticket = new Item_Ticket();
         }
 
+        //IF WE ARE NOT Self-Service WE WILL SEE HIDDEN FIELDS!!!!!!!
+        $profile = $_SESSION['glpiactiveprofile'];
+        if($profile['name'] != "Self-Service")
+        {
+            $tt->hidden = [];
+        }
+
         TemplateRenderer::getInstance()->display('components/itilobject/layout.html.twig', [
             'item'               => $this,
             'timeline_itemtypes' => $this->getTimelineItemtypes(),

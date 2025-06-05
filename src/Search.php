@@ -152,7 +152,6 @@ class Search
      **/
     public static function show($itemtype)
     {
-
         $params = self::manageParams($itemtype, $_GET);
         $params['display_type'] = self::HTML_OUTPUT; //we obviousely are displaying an HTML content
         echo "<div class='search_page row'>";
@@ -166,6 +165,28 @@ class Search
             && Session::getCurrentInterface() === 'central'
             && $default = Glpi\Dashboard\Grid::getDefaultDashboardForMenu('mini_ticket', true)
         ) {
+            $dashboard = new Glpi\Dashboard\Grid($default, 33, 2);
+            $dashboard->show(true);
+        }
+	else if (
+            $itemtype == "Ticket"
+            && Session::getCurrentInterface() === 'helpdesk'
+            && $default = Glpi\Dashboard\Grid::getDefaultDashboardForMenu('mini_ticket', true)
+        ) {
+            //little hack
+            echo HTML::script("/js/dashboard.min.js");
+            echo HTML::script("/js/clipboard.min.js");
+            echo HTML::script("/public/lib/gridstack.js");
+            echo HTML::script("/public/lib/sortable.js");
+            echo HTML::script("/public/lib/chartist.js");
+            echo HTML::css("/public/lib/chartist.css");
+            echo HTML::css("/public/lib/gridstack_IVC.css");
+            echo HTML::css("/css_compiled/css_standalone_dashboard.min.css");
+            echo HTML::css("/css_compiled/css_standalone_gridstack-grids.min.css");
+            echo HTML::css("/css_compiled/css_standalone_chartist.min.css");
+            echo HTML::css("/css/lib/fontsource/inter/files/inter-greek-400-normal.woff2");
+            echo HTML::css("/css/lib/fontsource/inter/files/inter-cyrillic-700-normal.woff2");
+            echo HTML::scss("/css/lib/fontsource/inter/files/inter-latin-700-normal.woff2");
             $dashboard = new Glpi\Dashboard\Grid($default, 33, 2);
             $dashboard->show(true);
         }

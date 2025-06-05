@@ -1537,8 +1537,8 @@ abstract class CommonITILValidation extends CommonDBChild
         }
 
         return self::computeValidation(
-            round($statuses[self::ACCEPTED] * 100 / $total),
-            round($statuses[self::REFUSED]  * 100 / $total),
+            round($statuses[self::ACCEPTED] * 100 / ($total == 0 ? 1 : $total)),
+            round($statuses[self::REFUSED]  * 100 / ($total == 0 ? 1 : $total)),
             $validation_percent
         );
     }
