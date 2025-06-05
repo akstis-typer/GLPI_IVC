@@ -315,7 +315,6 @@ HTML;
         $left_toolbar = "";
         $grid_guide   = "";
 
-
         if (!self::$embed) {
             if (!$mini && $can_create) {
                 $l_tb_icons .= "<i class='btn btn-outline-secondary fas fa-plus fs-toggle add-dashboard' title='$add_dash_label'></i>";

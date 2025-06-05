@@ -514,6 +514,7 @@ abstract class ITILTemplate extends CommonDropdown
      **/
     public static function showCentralPreview(ITILTemplate $tt)
     {
+        
         if (!$tt->getID()) {
             return false;
         }

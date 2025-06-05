@@ -1470,6 +1470,7 @@ class MailCollector extends CommonDBTM
     {
         $head   = [];
         $headers = $message->getHeaders();
+
         foreach ($headers as $header) {
            // is line with additional header?
             $key = $header->getFieldName();
@@ -1493,6 +1494,7 @@ class MailCollector extends CommonDBTM
                 $head[$key] .= trim($value);
             }
         }
+        
         return $head;
     }
 

@@ -134,12 +134,10 @@ class TicketTemplate extends ITILTemplate
             switch ($tabnum) {
                 case 1:
                     $item->showCentralPreview($item);
-                    Toolbox::logInFile("TicketsLog", "SHOW CENTRAL PREVIEW    ");
                     return true;
 
                 case 2:
                     static::showHelpdeskPreview($item);
-                    Toolbox::logInFile("TicketsLog", "SHOW HELPDESK PREVIEW    ");
                     return true;
             }
         }
