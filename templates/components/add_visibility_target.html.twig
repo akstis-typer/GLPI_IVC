@@ -35,7 +35,7 @@
     <form method="post" action="{{ type|itemtype_form_path }}">
         <input type="hidden" name="{{ type|itemtype_foreign_key }}" value="{{ id }}">
         <input type="hidden" name="_glpi_csrf_token" value="{{ csrf_token() }}">
-        <div class="d-flex flex-wrap">
+        <div class="d-flex flex-wrap overflow-x-auto">
             {{ fields.dropdownItemTypes('_type', '', add_target_msg, {
                 types: ['Entity', 'Group', 'Profile', 'User'],
                 rand: rand,

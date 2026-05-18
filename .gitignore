@@ -13,6 +13,8 @@
 /.idea/
 /tools/api/
 /tools/htmlcov/
+/vendor/*
+!/vendor/.htaccess
 phpunit.xml
 /tests/config/
 /tests/coverage/
@@ -20,14 +22,21 @@ phpunit.xml
 /tests/cypress/downloads/
 /tests/cypress/videos/
 /tests/files/
+/tests/files-*/
 /tests/.env
 /nbproject
 .composer.hash
 /**/*.min.css
 !/tests/**/*.min.css
+/css/lib/
 /**/*.min.js
 !/tests/**/*.min.js
+/node_modules/
 .package.hash
+/public/build/
+/public/css_compiled/
+/public/js/
+/public/lib/
 /tests/web/error.log
 /inventory-vendors/*.json
 /locales/*.mo
@@ -40,9 +49,9 @@ phpstan.neon
 *.phar
 .env
 /resources/.illustrations_translations.php
-/phpunit/files/*
 /.dump/
 /tests/js/coverage/
+.DS_Store
 
 # Playwright
 /tests/e2e/results/
