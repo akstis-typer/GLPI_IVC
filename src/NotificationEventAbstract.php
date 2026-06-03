@@ -96,9 +96,8 @@ abstract class NotificationEventAbstract implements NotificationEventInterface
                             ) {
                                 //Send notification to the user
                                 if ($label === '') {
-                                    $itemtype = $item::class;
-                                    $items_id = method_exists($item, "getID") ? max($item->getID(), 0) : 0;
-
+                                    $itemtype = $item->fields['itemtype'] ?? $item::class;
+                                    $items_id = $item->fields['items_id'] ?? (method_exists($item, "getID") ? max($item->getID(), 0) : 0);
                                     $send_data = $template->getDataToSend(
                                         $notificationtarget,
                                         $tid,
