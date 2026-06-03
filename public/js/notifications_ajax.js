@@ -40,6 +40,51 @@
 
 /* eslint no-var: 0 */
 
+// Для отслеживания изменений URL в SPA
+// (без него URL не имеет конкретного endpoint'а)
+function onUrlChange(callback) {
+    // Патчим history API
+    var pushState = history.pushState;
+    history.pushState = function() {
+        pushState.apply(history, arguments);
+        callback(window.location.href);
+    };
+    
+    var replaceState = history.replaceState;
+    history.replaceState = function() {
+        replaceState.apply(history, arguments);
+        callback(window.location.href);
+    };
+    
+    window.addEventListener('popstate', function() {
+        callback(window.location.href);
+    });
+    
+    // Начальный вызов
+    if (document.readyState === 'complete') {
+        callback(window.location.href);
+    } else {
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                callback(window.location.href);
+            }, 100);
+        });
+    }
+}
+
+// Функция для генерации имени вкладки на основе URL
+onUrlChange(function() {
+    var url = window.location.href;
+        
+    // Извлекаем значимую часть URL (например, путь и параметры)
+    var parsedUrl = new URL(url);
+        
+    // Имя на основе полного пути (без домена), чтобы работала фокусировка вкладок
+    var windowName = 'glpi_tab_' + btoa(parsedUrl.pathname + parsedUrl.search);
+
+    window.name = windowName;    
+});
+
 (function (window, $) {
     function GLPINotificationsAjax(options) {
 
@@ -67,7 +112,36 @@
 
                     notification.onclick = function (event) {
                         event.preventDefault(); // prevent the browser from focusing the Notification's tab
-                        window.open(this.url_item, '_blank');
+                        // window.open(this.url_item, '_blank'); // Старая реализация (открывает просто новую вкладку)
+
+                        // Функция для поиска и фокусировки существующей вкладки
+                        var openTab = function(targetUrl) {
+                            var existingWindow = window.open('', 'glpi_tab_' + btoa(targetUrl));
+
+                            if (existingWindow && !existingWindow.closed) {
+                                try {
+                                    // Проверяем, тот ли это URL
+                                    if (existingWindow.location.href === targetUrl || 
+                                        existingWindow.location.href.indexOf(targetUrl) !== -1 ||
+                                        targetUrl.indexOf(existingWindow.location.href) !== -1) {
+                                        existingWindow.focus();
+                                        return true;
+                                    }
+                                } catch(e) {
+                                    // Если кросс-доменный доступ запрещён, просто фокусируемся
+                                    existingWindow.focus();
+                                    return true;
+                                }
+                            }
+
+                            var newWindow = window.open(targetUrl, 'glpi_tab_' + btoa(targetUrl));
+                            if (newWindow) {
+                                newWindow.focus();
+                            }
+                            return false;
+                        };
+
+                        openTab(this.url_item);
                     };
                 }
 
